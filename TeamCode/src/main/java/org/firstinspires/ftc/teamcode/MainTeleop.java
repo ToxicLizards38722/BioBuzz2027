@@ -8,37 +8,19 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class MainTeleop extends LinearOpMode {
+    MecanumDrive mecanumDrive = new MecanumDrive();
+    Intake intake = new Intake();
 
     @Override
     public void runOpMode() {
-        MecanumDrive.init(hardwareMap);
-
-        CRServo rightServo = hardwareMap.get(CRServo.class, "rightServo");
-        CRServo leftServo = hardwareMap.get(CRServo.class, "leftServo");
-        DcMotor Motor5 = hardwareMap.get(DcMotor.class, "Motor5");
-
-        leftServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        Motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        mecanumDrive.init(hardwareMap);
+        intake.init(hardwareMap);
 
         waitForStart();
 
         while (opModeIsActive()) {
-            MecanumDrive.drive(gamepad1);
-
-            if (gamepad1.circle) {
-                rightServo.setPower(1);
-                leftServo.setPower(1);
-                Motor5.setPower(0.7);
-            } else if (gamepad1.cross) {
-                rightServo.setPower(-1);
-                leftServo.setPower(-1);
-                Motor5.setPower(-0.7);
-            } else {
-                rightServo.setPower(0);
-                leftServo.setPower(0);
-                Motor5.setPower(0);
-            }
+            mecanumDrive.drive(gamepad1);
+            intake.operation(gamepad1);
         }
     }
 }

@@ -10,14 +10,14 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class MecanumDrive {
-    private static DcMotor frontLeft;
-    private static DcMotor backLeft;
-    private static DcMotor frontRight;
-    private static DcMotor backRight;
+    private DcMotor frontLeft;
+    private DcMotor backLeft;
+    private DcMotor frontRight;
+    private DcMotor backRight;
 
-    private static IMU imu;
+    private IMU imu;
 
-    public static void init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         frontRight = hardwareMap.get(DcMotor.class, "FR");
@@ -44,7 +44,7 @@ public class MecanumDrive {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public static void drive(Gamepad gamepad) {
+    public void drive(Gamepad gamepad) {
         double y = -gamepad.left_stick_y;
         double x = gamepad.left_stick_x;
         double rx = gamepad.right_stick_x;
