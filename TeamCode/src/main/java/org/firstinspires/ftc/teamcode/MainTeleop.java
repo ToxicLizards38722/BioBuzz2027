@@ -12,12 +12,13 @@ public class MainTeleop extends LinearOpMode {
     @Override
     public void runOpMode() {
         MecanumDrive.init(hardwareMap);
+
         CRServo rightServo = hardwareMap.get(CRServo.class, "rightServo");
         CRServo leftServo = hardwareMap.get(CRServo.class, "leftServo");
         DcMotor Motor5 = hardwareMap.get(DcMotor.class, "Motor5");
 
         leftServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        Motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         waitForStart();
@@ -28,18 +29,15 @@ public class MainTeleop extends LinearOpMode {
             if (gamepad1.circle) {
                 rightServo.setPower(1);
                 leftServo.setPower(1);
-                Motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 Motor5.setPower(0.7);
             } else if (gamepad1.cross) {
                 rightServo.setPower(-1);
                 leftServo.setPower(-1);
-                Motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 Motor5.setPower(-0.7);
             } else {
                 rightServo.setPower(0);
                 leftServo.setPower(0);
                 Motor5.setPower(0);
-
             }
         }
     }
