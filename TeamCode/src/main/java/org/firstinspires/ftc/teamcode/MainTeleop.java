@@ -11,16 +11,26 @@ public class MainTeleop extends LinearOpMode {
     MecanumDrive mecanumDrive = new MecanumDrive();
     Intake intake = new Intake();
 
+    Shooter shooter = new Shooter();
+
     @Override
     public void runOpMode() {
         mecanumDrive.init(hardwareMap);
         intake.init(hardwareMap);
+        shooter.init(hardwareMap);
 
         waitForStart();
 
         while (opModeIsActive()) {
             mecanumDrive.drive(gamepad1);
             intake.operation(gamepad1);
+
+            if (gamepad1.square) {
+                shooter.start();
+            }
+            if (gamepad1.triangle) {
+                shooter.stop();
+            }
         }
     }
 }
